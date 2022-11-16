@@ -32,7 +32,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 <html lang="<?= Yii::$app->language ?>" class="h-100">
 
 <head>
-    <title><?= Html::encode($this->title) ?></title>
+    <title>College Management System</title>
     <?php $this->head() ?>
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
@@ -146,7 +146,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     <footer id="footer" class="mt-auto py-3 bg-light">
         <div class="container">
             <div class="row text-muted">
-                <div class="col-md-6 text-center text-md-start">&copy; My Company <?= date('Y') ?></div>
+                <div class="col-md-6 text-center text-md-start">&copy; College Management System <?= date('Y') ?></div>
                 <div class="col-md-6 text-center text-md-end"><?= Yii::powered() ?></div>
             </div>
         </div>
