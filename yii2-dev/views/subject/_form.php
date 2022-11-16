@@ -31,19 +31,21 @@ use webvimark\extensions\DateRangePicker\DateRangePicker;
         'dateFormat' => 'yyyy-MM-dd',
     ]) ?>
 
-    <?= $form->field($model, 'ending_date')->widget(\yii\jui\DatePicker::className(),[
+    <!-- <= $form->field($model, 'ending_date')->widget(\yii\jui\DatePicker::className(),[
         'model' => $model,
         'name' => 'ending_date',
         'attribute' => 'ending_date',
         'dateFormat' => 'yyyy-MM-dd',
-    ]) ?>
+    ]) ?> -->
 
-
-
-
-
-
-
+    <?php 
+        if(isset($model->starting_date)){
+            $model->ending_date = $model->getFinishingDate($model['starting_date'], $model['duration']);
+            $model->save();    
+        }else{
+            $model->ending_date = NULL;
+        }
+    ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>

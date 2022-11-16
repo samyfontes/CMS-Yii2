@@ -45,11 +45,24 @@ class TestController extends Controller
 
                 $month++;
                 // var_dump('MES',$month);
+                die();
         }
 
 
 
 
+    }
+
+    public function actionMoreTests(){
+
+        $subj = Subjects::findOne(['id'=>6]);
+
+        $subj->getFinishingDate($subj['starting_date'], $subj['duration']);
+        
+        
+        
+        
+        die();
     }
 
 
