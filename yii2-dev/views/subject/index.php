@@ -1,6 +1,6 @@
 <?php
 
-use app\models\Subject;
+use app\models\Subjects;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
@@ -13,12 +13,12 @@ use yii\widgets\Pjax;
 $this->title = Yii::t('app', 'Subjects');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="subject-index">
+<div class="subjects-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Subject'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Create Subjects'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php Pjax::begin(); ?>
@@ -36,11 +36,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'price',
             'duration',
             //'teacher_id',
+            //'starting_date',
+            //'ending_date',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Subject $model, $key, $index, $column) {
+                'urlCreator' => function ($action, Subjects $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                }
+                 }
             ],
         ],
     ]); ?>

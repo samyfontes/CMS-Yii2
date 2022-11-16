@@ -1,20 +1,18 @@
 <?php
 
-use app\models\UserHasSubject;
-use webvimark\modules\UserManagement\models\User;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
-/** @var app\models\Subject $model */
+/** @var app\models\Subjects $model */
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Subjects'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="subject-view">
+<div class="subjects-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -27,16 +25,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
-        <?= Html::a(Yii::t('app', 'Take Course'), 
-            ['/user-has-subject/register-to-course', 'id' => $model->id], 
-            ['class' => 'btn btn-info', 'style' => 'color: white;']
-            ) ?>
-
-        <?= Html::a(Yii::t('app', 'Teach Course'), 
-            ['/subject/teach-subject', 'id' => $model->id], 
-            ['class' => 'btn btn-success']
-        ) ?>
     </p>
+
 
     <?= DetailView::widget([
         'model' => $model,
@@ -47,8 +37,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'price',
             'duration',
             'teacher_id',
+            'starting_date',
+            'ending_date',
         ],
     ]) ?>
+
 
     <br>
     <h2>Current Students</h2>
@@ -56,23 +49,21 @@ $this->params['breadcrumbs'][] = $this->title;
     <?=
     GridView::widget([
         'dataProvider' => $users,
-        // 'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'username',
-            'email',
-            'email_confirmed',
-            // [
-            //     'label' => 'name',
-            //     'value' => function($model){
-            //         return '<b>'.($model["name"]).'</b>';
-            //     },
-            //     'format' => 'raw',
-            // ],
+            'user.username',
+            'user.email'
         ],
     ]) 
     
     ?>
 
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 
 </div>

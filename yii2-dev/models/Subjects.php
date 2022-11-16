@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\data\ActiveDataProvider;
+use yii\db\Query;
 
 /**
  * This is the model class for table "subjects".
@@ -13,13 +15,15 @@ use Yii;
  * @property float|null $price
  * @property string|null $duration
  * @property int|null $teacher_id
+ * @property string|null $starting_date
+ * @property string|null $ending_date
  *
  * @property Payment[] $payments
  * @property User $teacher
  * @property UserHasGrade[] $userHasGrades
  * @property UserHasSubject[] $userHasSubjects
  */
-class Subject extends \yii\db\ActiveRecord
+class Subjects extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -38,6 +42,7 @@ class Subject extends \yii\db\ActiveRecord
             [['description', 'duration'], 'string'],
             [['price'], 'number'],
             [['teacher_id'], 'integer'],
+            [['starting_date', 'ending_date'], 'safe'],
             [['name'], 'string', 'max' => 255],
             [['teacher_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['teacher_id' => 'id']],
         ];
@@ -55,6 +60,8 @@ class Subject extends \yii\db\ActiveRecord
             'price' => 'Price',
             'duration' => 'Duration',
             'teacher_id' => 'Teacher ID',
+            'starting_date' => 'Starting Date',
+            'ending_date' => 'Ending Date',
         ];
     }
 
@@ -96,5 +103,20 @@ class Subject extends \yii\db\ActiveRecord
     public function getUserHasSubjects()
     {
         return $this->hasMany(UserHasSubject::class, ['subject_id' => 'id']);
+    }
+
+    public static function getUsersOnSubject($subjectId){
+
+        $query = UserHasSubject::find()->where(['subject_id'=>$subjectId]);
+
+
+        $provider =  new ActiveDataProvider([
+            'query' => $query,
+        ]);
+        
+
+        // filters... 
+
+        return $provider;
     }
 }

@@ -9,11 +9,11 @@ use yii\web\IdentityInterface;
 //class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface 
 class User extends ActiveRecord implements \yii\web\IdentityInterface 
 {
-    public $id;
-    public $username;
-    public $password;
-    public $authKey;
-    public $accessToken;
+    // public $id;
+    // public $username;
+    // public $password;
+    // public $authKey;
+    // public $accessToken;
 
     private static $users = [
         '100' => [
@@ -105,5 +105,9 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     public function validatePassword($password)
     {
         return $this->password === $password;
+    }
+
+    public function getP(){
+        return $this->hasMany(UserHasSubject::class, ['id' => 'user_id']);
     }
 }

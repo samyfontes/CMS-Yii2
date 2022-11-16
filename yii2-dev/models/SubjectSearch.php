@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Subject;
+use app\models\Subjects;
 
 /**
- * SubjectSearch represents the model behind the search form of `app\models\Subject`.
+ * SubjectSearch represents the model behind the search form of `app\models\Subjects`.
  */
-class SubjectSearch extends Subject
+class SubjectSearch extends Subjects
 {
     /**
      * {@inheritdoc}
@@ -18,7 +18,7 @@ class SubjectSearch extends Subject
     {
         return [
             [['id', 'teacher_id'], 'integer'],
-            [['name', 'description', 'duration'], 'safe'],
+            [['name', 'description', 'duration', 'starting_date', 'ending_date'], 'safe'],
             [['price'], 'number'],
         ];
     }
@@ -41,7 +41,7 @@ class SubjectSearch extends Subject
      */
     public function search($params)
     {
-        $query = Subject::find();
+        $query = Subjects::find();
 
         // add conditions that should always apply here
 
@@ -62,6 +62,8 @@ class SubjectSearch extends Subject
             'id' => $this->id,
             'price' => $this->price,
             'teacher_id' => $this->teacher_id,
+            'starting_date' => $this->starting_date,
+            'ending_date' => $this->ending_date,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])

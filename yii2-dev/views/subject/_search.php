@@ -8,7 +8,7 @@ use yii\widgets\ActiveForm;
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
-<div class="subject-search">
+<div class="subjects-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -29,6 +29,10 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'duration') ?>
 
     <?php // echo $form->field($model, 'teacher_id') ?>
+
+    <?php // echo $form->field($model, 'starting_date') ?>
+
+    <?php // echo $form->field($model, 'ending_date') ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>

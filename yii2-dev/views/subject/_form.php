@@ -4,19 +4,13 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var app\models\Subject $model */
+/** @var app\models\Subjects $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
-<div class="subject-form" style="align-content: center;">
+<div class="subjects-form">
 
-    <?php $form = ActiveForm::begin([
-        'options' => ['class' => 'form-horizontal'],
-        'fieldConfig' => [
-            'template' => "{label}\n<div class=\"col-md-8\">{input}</div>\n<div class=\"col-md\">{error}</div>",
-            'labelOptions' => ['class' => 'col-md control-label', 'style' => 'text-allign: center;'],
-        ],
-    ]); ?>
+    <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
@@ -27,6 +21,10 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'duration')->dropDownList([ 6 => '6', 12 => '12', ], ['prompt' => '']) ?>
 
     <?= $form->field($model, 'teacher_id')->textInput() ?>
+
+    <?= $form->field($model, 'starting_date')->textInput() ?>
+
+    <?= $form->field($model, 'ending_date')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
