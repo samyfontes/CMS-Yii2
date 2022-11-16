@@ -28,16 +28,18 @@ class TestController extends Controller
         var_dump($ending_month);
 
         $month = $starting_month;
+        $year = $starting_year + 2000;
 
         $i = $month;
 
         for ($i=0; $i < (int)$subj['duration'] ; $i++) { 
             if($month > 12){
                 $month = 1;
-                echo "new pending payment for ". ($month);
+                $year++;
+                echo "new pending payment for ". $year . "-" . ($month);
                 echo '<br>';
             }else{
-                echo "new pending payment for ". $month;
+                echo "new pending payment for ". $year . "-" . $month;
                 echo '<br>';
             };
 
