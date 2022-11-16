@@ -23,7 +23,8 @@
         "yiisoft/yii2-bootstrap4": "^2.0",
         "yiisoft/yii2-bootstrap":"~2.0.0",
         "kartik-v/yii2-widget-select2": "@dev",
-        "co0lc0der/yii2-adminlte3-widgets": "dev-main"
+        "co0lc0der/yii2-adminlte3-widgets": "dev-main",
+        "yiisoft/yii2-jui": "2.0.x-dev"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
