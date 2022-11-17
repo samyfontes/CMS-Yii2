@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Payments;
 use app\models\PaymentSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -114,6 +115,37 @@ class PaymentController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    /**
+     * Renders a view where the user can see data relating his payments 
+     */
+    public function actionMyPayments($user_id)
+    {
+
+        $searchModel = new PaymentSearch();
+        $dataProvider = $searchModel->searchUserPayments($user_id);
+
+        return $this->render('my-payments', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+
+    }
+
+    public function actionClosePayment($user_id, $pmnt_id)
+    {
+
+        Payments::closePayment($pmnt_id);
+
+        $searchModel = new PaymentSearch();
+        $dataProvider = $searchModel->searchUserPayments($user_id);
+
+        return $this->render('my-payments', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+
     }
 
     /**

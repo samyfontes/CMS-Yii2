@@ -137,4 +137,13 @@ class Payments extends \yii\db\ActiveRecord
         }
 
     }
+
+    public static function closePayment($pmnt_id)
+    {
+
+        $pmnt = Payments::find()->where(['id' => $pmnt_id])->one();
+
+        $pmnt->status = 'closed'; 
+        $pmnt->save();
+    }
 }

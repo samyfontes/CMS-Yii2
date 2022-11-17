@@ -66,4 +66,21 @@ class PaymentSearch extends Payments
 
         return $dataProvider;
     }
+
+    /**
+     * Creates data provider instance with search query applied for specific user_id
+     *
+     * @param array $params
+     *
+     * @return ActiveDataProvider
+     */
+    public function searchUserPayments($user_id)
+    {
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => Payments::find()->where(['from_user' => $user_id]),
+        ]);
+
+        return $dataProvider;
+    }
 }

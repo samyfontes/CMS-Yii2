@@ -84,6 +84,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                     'items' => [
                         ['label' => 'crear', 'url' => ['/payment/create']],
                         ['label' => 'index', 'url' => ['/payment/index']],
+                        ['label' => 'my payments', 'url' => Url::toRoute(['/payment/my-payments','user_id' => Yii::$app->user->identity->id]) ],
                     ],
                 ],
                 [

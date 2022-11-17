@@ -32,7 +32,6 @@ class UserHasSubject extends \yii\db\ActiveRecord
         return [
             [['user_id', 'subject_id'], 'required'],
             [['user_id', 'subject_id'], 'integer'],
-            [['status'], 'string'],
             [['subject_id'], 'exist', 'skipOnError' => true, 'targetClass' => Subjects::class, 'targetAttribute' => ['subject_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
