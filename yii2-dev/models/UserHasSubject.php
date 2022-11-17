@@ -68,4 +68,18 @@ class UserHasSubject extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
+
+
+    /**
+     * Gets the Amount of courses the user is taking
+     * 
+     * @return int
+     */
+    public static function getCurrentSubjectAmount($id){
+
+        $amount = UserHasSubject::find()->where(['user_id'=> $id])->all();
+
+        return $amount;
+
+    }
 }

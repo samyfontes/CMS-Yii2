@@ -4,27 +4,63 @@
 
 use app\models\Subject;
 use app\models\SubjectSearch;
-
+use app\models\UserHasSubject;
 use co0lc0der\Lte3Widgets\CardWidget;
 use co0lc0der\Lte3Widgets\CardToolsHelper;
+use co0lc0der\Lte3Widgets\ProfileCardWidget;
+use app\models\User as ModelsUser;
 use yii\helpers\Html;
 use webvimark\modules\UserManagement\models\User;
 
 
 
 $this->title = 'My Yii Application';
+$roles = ModelsUser::getRole(User::getCurrentUser()->id);
+$role = $roles[0];
+
+$subjectAmount = UserHasSubject::getCurrentSubjectAmount(User::getCurrentUser()->id);
 
 
 ?>
 <div class="site-index">
 
-    <div class="jumbotron text-center bg-transparent">
-        <h1 class="display-4">Bienvenido!</h1>
-        
-        <p class="lead">Esta es la plataforma de cursos</p>
+    <div class="flex-container jumbotron text-center bg-transparent " style="display: flex;flex-direction: row; align-items: center; flex-wrap: wrap; justify-content: center; margin-bottom: 180px;">
+        <div style="padding-left: 55px;padding-right: 55px;margin-left: 10px;margin-right: 10px;"> 
 
-        <!-- <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p> -->
-    </div>
+            <h1 class="display-4">Bienvenido!</h1>
+
+            <p class="lead">Esta es la plataforma de cursos</p>
+
+        </div>
+
+    <?
+
+        echo Html::beginTag('div', ['style' => 'margin-left: 80px;margin-right: 80px; ']);
+
+        ProfileCardWidget::begin([
+            'name' => Yii::$app->user->identity->username,
+            //TODO: Refinar la busqueda del rol principal del usuario
+            // 'position' => $role['item_name'],
+            'color' => 'info',
+            'outline' => true,
+            'rows' => [
+                'Ongoing subjects' => [
+                    count($subjectAmount),
+                ],
+                'Finished subjects'    => [
+                    'No finished subjects at the time'
+                ],
+                'Pending Payments'    => ['3'],
+
+            ],
+        ]);
+
+
+        ProfileCardWidget::end();
+
+        echo Html::endTag('div');
+        
+    ?>
 
     <div class="body-content">
 

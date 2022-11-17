@@ -2,7 +2,10 @@
 
 namespace app\models;
 
+use webvimark\modules\UserManagement\components\AuthHelper;
 use webvimark\modules\UserManagement\models\User as ModelsUser;
+use Yii;
+use yii\db\Query;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
@@ -107,7 +110,24 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
         return $this->password === $password;
     }
 
-    public function getP(){
+    public function getP()
+    {
         return $this->hasMany(UserHasSubject::class, ['id' => 'user_id']);
+    }
+
+
+    /**
+     * returns users role/s
+     * 
+     * @return roles
+     */
+    public static function getRole($id){
+
+        $query = (new \yii\db\Query());
+        $query->select('aa.item_name')->from('auth_assignment aa')->where('aa.user_id='.$id)->orderBy('created_at ASC')->limit(1);
+
+        $roles = $query->all();
+        
+        return $roles;
     }
 }

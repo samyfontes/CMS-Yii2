@@ -9,6 +9,8 @@ use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Html;
 use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
+use yii\helpers\Url;
+
 
 
 use webvimark\modules\UserManagement\components\GhostMenu;
@@ -74,7 +76,6 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                     'label' => 'Frontend routes',
                     'items' => [
                         ['label' => 'Login', 'url' => ['/user-management/auth/login']],
-                        ['label' => 'Logout', 'url' => ['/user-management/auth/logout']],
                         ['label' => 'Registration', 'url' => ['/user-management/auth/registration']],
                         ['label' => 'Change own password', 'url' => ['/user-management/auth/change-own-password']],
                         ['label' => 'Password recovery', 'url' => ['/user-management/auth/password-recovery']],
@@ -109,6 +110,14 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                         ['label' => 'index', 'url' => ['/user-has-subject/index']],
                     ],
                 ],
+                [   
+                    'label' => Yii::$app->user->identity->username,
+                    'items' => [
+                        ['label' => 'Profile Data', 'url' => Url::toRoute(['/user-management/user/view','id' => Yii::$app->user->identity->id]) ],
+                        ['label' => 'Logout', 'url' => ['/user-management/auth/logout']],
+
+                    ]
+                ]
             ],
         ]);
 
