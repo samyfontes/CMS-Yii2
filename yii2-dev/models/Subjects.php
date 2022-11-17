@@ -144,7 +144,7 @@ class Subjects extends \yii\db\ActiveRecord
             
             if($ending_month > 12){
             
-                $ending_month = $ending_month - 13 ;
+                $ending_month = $ending_month - 12 ;
                 $ending_year = $starting_year + 1 ;
 
             }

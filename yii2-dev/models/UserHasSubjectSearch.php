@@ -11,13 +11,14 @@ use app\models\UserHasSubject;
  */
 class UserHasSubjectSearch extends UserHasSubject
 {
-    /**
+    /** 
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
             [['id', 'user_id', 'subject_id'], 'integer'],
+            [['status'], 'string']
         ];
     }
 

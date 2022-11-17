@@ -2,7 +2,8 @@
 
 namespace app\controllers;
 
-use app\models\Subject;
+use app\models\Payments;
+use app\models\Subjects;
 use app\models\UserHasSubject;
 use app\models\UserHasSubjectSearch;
 use Yii;
@@ -92,19 +93,21 @@ class UserHasSubjectController extends Controller
     public function actionRegisterToCourse($id){
 
         $register = new UserHasSubject ;
-        $subj = Subject::find()->where(['id' => $id])->one();
+        $subj = Subjects::find()->where(['id' => $id])->one();
 
         $register->user_id = Yii::$app->user->identity->id;
         $register->subject_id = $subj->id; 
 
         if($register->save()){
+            Payments::createPendingPayments($subj->id);
+
             Yii::$app->session->addFlash('success', 'Usted se inscribió con éxito a este curso');
         }else{
             Yii::$app->session->addFlash('error', 'Usted no pudo inscribirse a este curso');
         }        
 
         return $this->render('@app/views/subject/view', [
-            'model' => Subject::find()->where(['id' => $id])->one(),
+            'model' => Subjects::find()->where(['id' => $id])->one(),
         ]);
     }
 

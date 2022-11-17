@@ -109,7 +109,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <br>
     <h2>Current Students</h2>
 
-    <?=
+    <=
     GridView::widget([
         'dataProvider' => $users,
         'columns' => [
