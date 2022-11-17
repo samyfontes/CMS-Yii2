@@ -4,6 +4,7 @@
 /** @var string $content */
 
 use app\assets\AppAsset;
+use app\models\User;
 use app\widgets\Alert;
 use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Html;
@@ -15,6 +16,7 @@ use yii\helpers\Url;
 
 use webvimark\modules\UserManagement\components\GhostMenu;
 use webvimark\modules\UserManagement\components\GhostNav;
+use webvimark\modules\UserManagement\models\User as ModelsUser;
 use webvimark\modules\UserManagement\UserManagementModule;
 
 
@@ -45,6 +47,61 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 
     <header id="header">
         <?php
+
+
+            /**
+             * *DECLARACIONES DE RUTAS PARA INTERPRETACION POR ROLES 
+             */
+                $grade_routes = [];
+                $subject_routes = []; 
+                $payment_routes = [];
+                $user_management_routes = [];
+
+                if(ModelsUser::hasRole('superadmin' || 'admin')){
+
+                    $subject_routes = [
+                        ['label' => 'crear', 'url' => ['/subject/create']],
+                        ['label' => 'index', 'url' => ['/subject/index']],
+                    ]; 
+                    $user_management_routes = [
+                        [
+                            'label' => 'User Management',
+                            'items' => UserManagementModule::menuItems(),
+                        ]
+                    ];
+                    $payment_routes = [
+                    ['label' => 'crear', 'url' => ['/payment/create']],
+                    ['label' => 'index', 'url' => ['/payment/index']],
+                    ['label' => 'my payments', 'url' => Url::toRoute(['/payment/my-payments','user_id' => Yii::$app->user->identity->id]) ],
+                    ];
+                    $grade_routes = [
+                        ['label' => 'crear', 'url' => ['/user-has-grade/create']],
+                        ['label' => 'index', 'url' => ['/user-has-grade/index']],
+                    ];
+
+                }else{
+                    $subject_routes = [
+                        ['label' => 'index', 'url' => ['/subject/index']],
+                    ];
+                    $payment_routes = [
+                        ['label' => 'index', 'url' => ['/payment/index']],
+                        ['label' => 'my payments', 'url' => Url::toRoute(['/payment/my-payments','user_id' => Yii::$app->user->identity->id]) ],
+                    ];
+                    $grade_routes = [
+                        ['label' => 'index', 'url' => ['/user-has-grade/index']],
+                    ];
+                }
+
+
+
+
+
+            
+            
+            /**
+             * *DECLARACIONES DE RUTAS PARA INTERPRETACION POR ROLES 
+             */
+
         // GhostNav::begin([
         NavBar::begin([
             // 'brandLabel' => Yii::$app->name,
@@ -59,41 +116,26 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
             'options' => ['class' => 'navbar-nav mx-auto',],
             'items' => [
                 ['label' => 'Home', 'url' => ['/site/index']],
-                ['label' => 'About', 'url' => ['/site/about']],
-                ['label' => 'Contact', 'url' => ['/site/contact']],
-
-
-
-                // echo GhostMenu::widget([
-                // 'encodeLabels'=>false,
-                // 'activateParents'=>true,
-                // 'items' => [
-                [
-                    'label' => 'User Management',
-                    'items' => UserManagementModule::menuItems(),
-                ],
+                // ['label' => 'About', 'url' => ['/site/about']],
+                // ['label' => 'Contact', 'url' => ['/site/contact']],
                 [
                     'label' => 'Subjects',
-                    'items' => [
-                        ['label' => 'crear', 'url' => ['/subject/create']],
-                        ['label' => 'index', 'url' => ['/subject/index']],
-                    ],
+                    'items' => $subject_routes,
                 ],
                 [
                     'label' => 'Payments',
-                    'items' => [
-                        ['label' => 'crear', 'url' => ['/payment/create']],
-                        ['label' => 'index', 'url' => ['/payment/index']],
-                        ['label' => 'my payments', 'url' => Url::toRoute(['/payment/my-payments','user_id' => Yii::$app->user->identity->id]) ],
-                    ],
+                    'items' => $payment_routes,
                 ],
                 [
                     'label' => 'Grades',
-                    'items' => [
-                        ['label' => 'crear', 'url' => ['/user-has-grade/create']],
-                        ['label' => 'index', 'url' => ['/user-has-grade/index']],
-                    ],
+                    'items' => $grade_routes,
                 ],
+                
+                /**
+                 * ?encontrar una forma mas prolija de mostrar esta info
+                 */
+                (ModelsUser::hasRole('superadmin' || 'admin')) ? ['label' => 'Users','items' => UserManagementModule::menuItems(),] : '',
+                
                 [   
                     'label' => Yii::$app->user->identity->username,
                     'items' => [
@@ -106,19 +148,6 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                 ]
             ],
         ]);
-
-        // Yii::$app->user->isGuest
-        //     ? ['label' => 'Login', 'url' => ['/site/login']]
-        //     : '<li class="nav-item">'
-        //         . Html::beginForm(['/site/logout'])
-        //         . Html::submitButton(
-        //             'Logout (' . Yii::$app->user->identity->username . ')',
-        //             ['class' => 'nav-link btn btn-link logout']
-        //         )
-        //         . Html::endForm()
-        //         . '</li>'
-        // ]
-        // ]);
 
         // GhostNav::end();
         NavBar::end();
