@@ -23,7 +23,7 @@ class m221014_121845_create_payments_table extends Migration
             'for_subject' => $this->integer()->notNull(),
         ]);
 
-        $this->addColumn('subjects', 'status',"ENUM('pending', 'closed')");
+        $this->addColumn('payments', 'status',"ENUM('pending', 'closed')");
         $this->addColumn('{{%payments}}', 'date', $this->date());
 
 
