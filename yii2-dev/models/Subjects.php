@@ -119,4 +119,38 @@ class Subjects extends \yii\db\ActiveRecord
 
         return $provider;
     }
+
+    /**
+     * Returns the Finishing date of a subject
+     * 
+     * @return string
+     */
+    public function getFinishingDate($starting_date, $duration){
+        
+        $starting_year = (int)date("y",strtotime($starting_date)) + 2000;
+        $starting_month = (int)date("m",strtotime($starting_date));
+        $starting_day = (int)date("d",strtotime($starting_date));
+
+        if($duration === 12){
+
+            $ending_year = $starting_year + 1;
+            $ending_month = $starting_month;
+
+        }else{
+            
+            $ending_year = $starting_year;
+            $ending_month = $starting_month + $duration;
+            
+            if($ending_month > 12){
+            
+                $ending_month = $ending_month - 13 ;
+                $ending_year = $starting_year + 1 ;
+
+            }
+        }
+
+        $finishing_date = $ending_year . "-" . $ending_month  . "-" . $starting_day . " 00:00:00" ;
+        
+        return date($finishing_date) ;
+    }
 }
