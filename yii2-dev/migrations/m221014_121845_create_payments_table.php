@@ -23,7 +23,6 @@ class m221014_121845_create_payments_table extends Migration
             'for_subject' => $this->integer()->notNull(),
         ]);
 
-        $this->addColumn('payments', 'status',"ENUM('pending', 'closed')");
 
 
         // creates index for column `from_user`
@@ -90,7 +89,6 @@ class m221014_121845_create_payments_table extends Migration
             '{{%payments}}'
         );
 
-        $this->dropColumn('{{%payments}}', 'date');
 
         $this->dropTable('{{%payments}}');
 
