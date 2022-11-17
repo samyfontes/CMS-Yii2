@@ -138,6 +138,19 @@ class Payments extends \yii\db\ActiveRecord
 
     }
 
+    /**
+     * Returns the amount of Payments the current user has pending 
+     * 
+     * @return int
+     */
+    public static function getPendingPaymentsAmount($user_id)
+    {
+
+        $pending_pmnts = count(Payments::find()->where(['from_user'=>$user_id])->all());
+
+        return $pending_pmnts;
+    }
+
     public static function closePayment($pmnt_id)
     {
 

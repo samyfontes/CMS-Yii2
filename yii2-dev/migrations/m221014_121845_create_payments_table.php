@@ -23,6 +23,8 @@ class m221014_121845_create_payments_table extends Migration
             'for_subject' => $this->integer()->notNull(),
         ]);
 
+        $this->addColumn('subjects', 'duration',"ENUM('6', '12')");
+
         // creates index for column `from_user`
         $this->createIndex(
             '{{%idx-payments-from_user}}',

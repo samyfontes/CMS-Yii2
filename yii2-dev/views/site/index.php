@@ -2,6 +2,7 @@
 
 /** @var yii\web\View $this */
 
+use app\models\Payments;
 use app\models\Subject;
 use app\models\SubjectSearch;
 use app\models\UserHasSubject;
@@ -19,7 +20,7 @@ $roles = ModelsUser::getRole(User::getCurrentUser()->id);
 $role = $roles[0];
 
 $subjectAmount = UserHasSubject::getCurrentSubjectAmount(User::getCurrentUser()->id);
-
+$pending_pmnts = Payments::getPendingPaymentsAmount(User::getCurrentUser()->id);
 
 ?>
 <div class="site-index">
@@ -50,7 +51,9 @@ $subjectAmount = UserHasSubject::getCurrentSubjectAmount(User::getCurrentUser()-
                 'Finished subjects'    => [
                     'No finished subjects at the time'
                 ],
-                'Pending Payments'    => ['3'],
+                'Pending Payments'    => [
+                    $pending_pmnts,
+                ],
 
             ],
         ]);

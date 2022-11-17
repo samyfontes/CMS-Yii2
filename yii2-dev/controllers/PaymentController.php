@@ -133,6 +133,12 @@ class PaymentController extends Controller
 
     }
 
+
+    /**
+     * Closes payments live
+     * 
+     * Realisticly it should open a payment platform and everything else 
+     */
     public function actionClosePayment($user_id, $pmnt_id)
     {
 
