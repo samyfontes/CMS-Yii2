@@ -59,9 +59,6 @@ class TestController extends Controller
 
         $subj->getFinishingDate($subj['starting_date'], $subj['duration']);
         
-        
-        
-        
         die();
     }
 
