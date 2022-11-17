@@ -5,9 +5,11 @@ use webvimark\modules\UserManagement\models\User;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\widgets\Pjax;
 
 /** @var yii\web\View $this */
 /** @var app\models\Subjects $model */
+
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Subjects'), 'url' => ['index']];
@@ -109,16 +111,21 @@ $this->params['breadcrumbs'][] = $this->title;
     <br>
     <h2>Current Students</h2>
 
-    <?=
-    GridView::widget([
+    <?
+
+    Pjax::begin();
+
+    echo GridView::widget([
         'dataProvider' => $users,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'user.username',
             'user.email'
         ],
-    ]) 
+    ]) ;
     
+    Pjax::end();
+
     ?>
 
     <br>

@@ -114,9 +114,6 @@ class Subjects extends \yii\db\ActiveRecord
         $provider =  new ActiveDataProvider([
             'query' => $query,
         ]);
-        
-
-        // filters... 
 
         return $provider;
     }
