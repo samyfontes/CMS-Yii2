@@ -49,14 +49,14 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         NavBar::begin([
             // 'brandLabel' => Yii::$app->name,
             // 'brandUrl' => Yii::$app->homeUrl,
-            'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top', 'style' => 'height:50px, padding-top:10px']
+            'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top', 'style' => 'height:50px, padding-top:10px;']
             // 'options' => ['class' => 'nav-pills nav-stacked'],
         ]);
         // echo GhostMenu::widget([
         echo Nav::widget([
             'encodeLabels' => false,
             'activateParents' => true,
-            'options' => ['class' => 'navbar-nav'],
+            'options' => ['class' => 'navbar-nav mx-auto',],
             'items' => [
                 ['label' => 'Home', 'url' => ['/site/index']],
                 ['label' => 'About', 'url' => ['/site/about']],
@@ -69,45 +69,28 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                 // 'activateParents'=>true,
                 // 'items' => [
                 [
-                    'label' => 'Backend routes',
+                    'label' => 'User Management',
                     'items' => UserManagementModule::menuItems(),
                 ],
                 [
-                    'label' => 'Frontend routes',
-                    'items' => [
-                        ['label' => 'Login', 'url' => ['/user-management/auth/login']],
-                        ['label' => 'Registration', 'url' => ['/user-management/auth/registration']],
-                        ['label' => 'Change own password', 'url' => ['/user-management/auth/change-own-password']],
-                        ['label' => 'Password recovery', 'url' => ['/user-management/auth/password-recovery']],
-                        ['label' => 'E-mail confirmation', 'url' => ['/user-management/auth/confirm-email']],
-                    ],
-                ],
-                [
-                    'label' => 'Subject routes',
+                    'label' => 'Subjects',
                     'items' => [
                         ['label' => 'crear', 'url' => ['/subject/create']],
                         ['label' => 'index', 'url' => ['/subject/index']],
                     ],
                 ],
                 [
-                    'label' => 'Payment routes',
+                    'label' => 'Payments',
                     'items' => [
                         ['label' => 'crear', 'url' => ['/payment/create']],
                         ['label' => 'index', 'url' => ['/payment/index']],
                     ],
                 ],
                 [
-                    'label' => 'Grade routes',
+                    'label' => 'Grades',
                     'items' => [
                         ['label' => 'crear', 'url' => ['/user-has-grade/create']],
                         ['label' => 'index', 'url' => ['/user-has-grade/index']],
-                    ],
-                ],
-                [
-                    'label' => 'User Subject routes',
-                    'items' => [
-                        ['label' => 'crear', 'url' => ['/user-has-subject/create']],
-                        ['label' => 'index', 'url' => ['/user-has-subject/index']],
                     ],
                 ],
                 [   
@@ -115,7 +98,9 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                     'items' => [
                         ['label' => 'Profile Data', 'url' => Url::toRoute(['/user-management/user/view','id' => Yii::$app->user->identity->id]) ],
                         ['label' => 'Logout', 'url' => ['/user-management/auth/logout']],
-
+                        ['label' => 'Change own password', 'url' => ['/user-management/auth/change-own-password']],
+                        ['label' => 'Password recovery', 'url' => ['/user-management/auth/password-recovery']],
+                        ['label' => 'E-mail confirmation', 'url' => ['/user-management/auth/confirm-email']],
                     ]
                 ]
             ],

@@ -24,7 +24,7 @@ $subjectAmount = UserHasSubject::getCurrentSubjectAmount(User::getCurrentUser()-
 ?>
 <div class="site-index">
 
-    <div class="flex-container jumbotron text-center bg-transparent " style="display: flex;flex-direction: row; align-items: center; flex-wrap: wrap; justify-content: center; margin-bottom: 180px;">
+    <div class="flex-container jumbotron text-center bg-transparent " style="display: flex;flex-direction: row; align-items: center; flex-wrap: wrap; justify-content: center; margin-bottom: 100px;">
         <div style="padding-left: 55px;padding-right: 55px;margin-left: 10px;margin-right: 10px;"> 
 
             <h1 class="display-4">Bienvenido!</h1>
@@ -34,8 +34,8 @@ $subjectAmount = UserHasSubject::getCurrentSubjectAmount(User::getCurrentUser()-
         </div>
 
     <?
-
-        echo Html::beginTag('div', ['style' => 'margin-left: 80px;margin-right: 80px; ']);
+        
+        echo Html::beginTag('div', ['style' => 'margin-left: 80px;margin-right: 80px;']);
 
         ProfileCardWidget::begin([
             'name' => Yii::$app->user->identity->username,
@@ -61,6 +61,7 @@ $subjectAmount = UserHasSubject::getCurrentSubjectAmount(User::getCurrentUser()-
         echo Html::endTag('div');
         
     ?>
+    </div>
 
     <div class="body-content">
 

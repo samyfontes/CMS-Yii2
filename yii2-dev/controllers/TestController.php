@@ -11,7 +11,8 @@ class TestController extends Controller
 
     public function actionTest(){
         
-        $subj = Subjects::findOne(['id'=>3]);
+        $subj = Subjects::findOne(['id'=>4
+    ]);
 
         echo'<pre>';
         var_dump($subj['starting_date']);

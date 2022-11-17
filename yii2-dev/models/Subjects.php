@@ -105,7 +105,8 @@ class Subjects extends \yii\db\ActiveRecord
         return $this->hasMany(UserHasSubject::class, ['subject_id' => 'id']);
     }
 
-    public static function getUsersOnSubject($subjectId){
+    public static function getUsersOnSubject($subjectId)
+    {
 
         $query = UserHasSubject::find()->where(['subject_id'=>$subjectId]);
 
