@@ -4,8 +4,10 @@ namespace app\controllers;
 
 use app\models\Payments;
 use app\models\Subjects;
+use app\models\UserHasSubject;
 use Faker\Core\Number;
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 
 class TestController extends Controller
@@ -84,6 +86,19 @@ class TestController extends Controller
         $subj->getFinishingDate($subj['starting_date'], $subj['duration']);
         
         die();
+    }
+
+    public function actionMuchMoreTest(){
+        $user_id = 1;
+
+        $user_subjects = UserHasSubject::find('id')->where(['user_id' => $user_id]);
+
+        echo'<pre>';
+        var_dump($user_subjects);
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => Subjects::find()->where(['id' => $user_id]),
+        ]);
     }
 
 

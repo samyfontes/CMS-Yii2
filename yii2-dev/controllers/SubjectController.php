@@ -50,6 +50,21 @@ class SubjectController extends Controller
     }
 
     /**
+     * Returns a view so that the user can see every 
+     * subject that they are registered into 
+     */
+    public function actionMySubjects($user_id)
+    {
+        $searchModel = new SubjectSearch();
+        $dataProvider = $searchModel->searchUserSubjects($user_id);
+
+        return $this->render('my-subjects', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
      * Displays a single Subjects model.
      * @param int $id ID
      * @return string

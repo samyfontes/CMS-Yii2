@@ -48,11 +48,11 @@ $pending_pmnts = Payments::getPendingPaymentsAmount(User::getCurrentUser()->id);
                 'Ongoing subjects' => [
                     count($subjectAmount),
                 ],
-                'Finished subjects'    => [
-                    'No finished subjects at the time'
-                ],
+                // 'Finished subjects'    => [
+                //     'No finished subjects at the time'
+                // ],
                 'Pending Payments'    => [
-                    $pending_pmnts,
+                    $pending_pmnts ,
                 ],
 
             ],

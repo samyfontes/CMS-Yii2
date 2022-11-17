@@ -62,6 +62,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                     $subject_routes = [
                         ['label' => 'crear', 'url' => ['/subject/create']],
                         ['label' => 'index', 'url' => ['/subject/index']],
+                        ['label' => 'my subejcts', 'url' => ['/subject/my-subjects','user_id' => Yii::$app->user->identity->id]]
                     ]; 
                     $user_management_routes = [
                         [
@@ -82,6 +83,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                 }else{
                     $subject_routes = [
                         ['label' => 'index', 'url' => ['/subject/index']],
+                        ['label' => 'my subejcts', 'url' => ['/subject/my-subjects', 'user_id' => Yii::$app->user->identity->id]]
                     ];
                     $payment_routes = [
                         ['label' => 'index', 'url' => ['/payment/index']],

@@ -72,4 +72,15 @@ class SubjectSearch extends Subjects
 
         return $dataProvider;
     }
+
+    public function searchUserSubjects($user_id){
+
+        $user_subjects = UserHasSubject::find()->where(['user_id' => $user_id]);
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => Subjects::find()->where(['id' => $user_id]),
+        ]);
+
+        return $dataProvider;
+    }
 }
