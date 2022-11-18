@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\AccountBalance;
 use app\models\Payments;
 use app\models\Subjects;
 use app\models\UserHasSubject;
@@ -99,6 +100,35 @@ class TestController extends Controller
         $dataProvider = new ActiveDataProvider([
             'query' => Subjects::find()->where(['id' => $user_id]),
         ]);
+    }
+
+    public function actionEvenMoreTests()
+    {   
+        $user_id = 1;
+
+        $subjects = Subjects::find()->where(['teacher_id' => $user_id])->all();
+
+        echo'<pre>';
+        // var_dump($subjects);
+
+        foreach ($subjects as $subject) {
+
+            var_dump($subject->id);
+            $payments = Payments::find()->where(['for_subject'=>$subject->id])->all();
+
+            foreach ($payments as $payment) {
+
+                if ($payment->status === 'closed') {
+                    
+                    // $teacher_commission = $payment->amount * 0.8 ;
+                    $teacher_commission = new AccountBalance();
+
+                    $teacher_commission->amount = $payment->amount * 0.8 ; 
+
+                    var_dump($teacher_commission);
+                }
+            }
+        }
     }
 
 

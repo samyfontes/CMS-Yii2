@@ -17,7 +17,7 @@ class m221118_123706_create_account_balance_table extends Migration
     public function safeUp()
     {
         $this->createTable('{{%account_balance}}', [
-            'id' => $this->primaryKey(),
+            'item_id' => $this->primaryKey(),
             'amount' => $this->float(),
             'for_user' => $this->integer()->notNull(),
             'payment_id' => $this->integer()->notNull(),

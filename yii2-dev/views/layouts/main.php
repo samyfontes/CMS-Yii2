@@ -56,6 +56,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                 $subject_routes = []; 
                 $payment_routes = [];
                 $user_management_routes = [];
+                $user = [];
 
                 if(ModelsUser::hasRole('superadmin' || 'admin')){
 
@@ -64,34 +65,65 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                         ['label' => 'index', 'url' => ['/subject/index']],
                         ['label' => 'my subejcts', 'url' => ['/subject/my-subjects','user_id' => Yii::$app->user->identity->id]]
                     ]; 
+                    $payment_routes = [
+                        ['label' => 'index', 'url' => ['/payment/index']],
+                        ['label' => 'my payments', 'url' => Url::toRoute(['/payment/my-payments','user_id' => Yii::$app->user->identity->id]) ],
+                    ];
+
                     $user_management_routes = [
                         [
                             'label' => 'User Management',
                             'items' => UserManagementModule::menuItems(),
                         ]
                     ];
-                    $payment_routes = [
-                    ['label' => 'crear', 'url' => ['/payment/create']],
-                    ['label' => 'index', 'url' => ['/payment/index']],
-                    ['label' => 'my payments', 'url' => Url::toRoute(['/payment/my-payments','user_id' => Yii::$app->user->identity->id]) ],
+                    
+                    $grade_routes = [
+                        ['label' => 'crear', 'url' => ['/user-has-grade/create']],
+                        ['label' => 'index', 'url' => ['/user-has-grade/index']],
                     ];
+                    
+                }elseif(ModelsUser::hasRole('teacher')){
+
+                    $subject_routes = [
+                        ['label' => 'crear', 'url' => ['/subject/create']],
+                        ['label' => 'index', 'url' => ['/subject/index']],
+                        ['label' => 'my subejcts', 'url' => ['/subject/my-subjects','user_id' => Yii::$app->user->identity->id]]
+                    ];
+
+                    $payment_routes = [
+                        ['label' => 'index', 'url' => ['/payment/index']],
+                        ['label' => 'my payments', 'url' => Url::toRoute(['/payment/my-payments','user_id' => Yii::$app->user->identity->id]) ],
+                        ['label' => 'Collect payments', 'url' => ['/account-balance/my-balance']]
+                    ];
+
                     $grade_routes = [
                         ['label' => 'crear', 'url' => ['/user-has-grade/create']],
                         ['label' => 'index', 'url' => ['/user-has-grade/index']],
                     ];
 
-                }else{
+                }elseif(ModelsUser::hasRole('student')){
+
                     $subject_routes = [
                         ['label' => 'index', 'url' => ['/subject/index']],
                         ['label' => 'my subejcts', 'url' => ['/subject/my-subjects', 'user_id' => Yii::$app->user->identity->id]]
                     ];
+
                     $payment_routes = [
                         ['label' => 'index', 'url' => ['/payment/index']],
                         ['label' => 'my payments', 'url' => Url::toRoute(['/payment/my-payments','user_id' => Yii::$app->user->identity->id]) ],
                     ];
+
                     $grade_routes = [
                         ['label' => 'index', 'url' => ['/user-has-grade/index']],
                     ];
+
+                }{
+
+                    $grade_routes = [
+                        ['label' => 'crear', 'url' => ['/user-has-grade/create']],
+                        ['label' => 'index', 'url' => ['/user-has-grade/index']],
+                    ];
+                
                 }
 
 
@@ -146,7 +178,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                         ['label' => 'Change own password', 'url' => ['/user-management/auth/change-own-password']],
                         ['label' => 'Password recovery', 'url' => ['/user-management/auth/password-recovery']],
                         ['label' => 'E-mail confirmation', 'url' => ['/user-management/auth/confirm-email']],
-                    ]
+                    ],
                 ]
             ],
         ]);
