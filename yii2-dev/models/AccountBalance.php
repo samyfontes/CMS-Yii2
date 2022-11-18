@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use DateTime;
 use Yii;
 
 /**
@@ -75,19 +76,18 @@ class AccountBalance extends \yii\db\ActiveRecord
         return $this->hasOne(User::class, ['id' => 'teacher_id']);
     }
 
-    public function newItem($pmnt_id)
+    public static function newItem($pmnt_id)
     {
-        $payment = Payments::findOne(['id'=>$pmnt_id]);
 
-        $teacher_id = Subjects::sele ;
-
-        if ($payment->status === 'closed') {
+        $payment = Payments::findOne(['id' => $pmnt_id]);
+        $subject = Subjects::find()->where(['id' => $payment->for_subject])->all();
+        $date = new DateTime();
+        $item = new AccountBalance();
+        $item->teacher_id = $subject[0]->teacher_id;
+        $item->payment_id = $pmnt_id;
+        $item->date = $date->format('Y-m-d');
+        $item->amount = $payment->amount * 0.8;
+        $item->save(false);
         
-            $teacher_commission = new AccountBalance();
-            $teacher_commission->amount = $payment->amount * 0.8 ; 
-            var_dump($teacher_commission);
-        
-        }
-
     }
 }

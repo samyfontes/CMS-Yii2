@@ -15,38 +15,39 @@ use yii\web\Controller;
 class TestController extends Controller
 {
 
-    public function actionTest(){
-        
-        $subj = Subjects::findOne(['id'=>5]);
+    public function actionTest()
+    {
+
+        $subj = Subjects::findOne(['id' => 5]);
 
         echo '<pre>';
         // var_dump($subj['starting_date']);
         // var_dump($subj['ending_date']);
         // var_dump($subj['duration']);
 
-        $starting_year = (int)date("y",strtotime($subj['starting_date']));
-        $ending_year = (int)date("y",strtotime($subj['ending_date']));
-        $day = (int)date("d",strtotime($subj['starting_date']));
+        $starting_year = (int)date("y", strtotime($subj['starting_date']));
+        $ending_year = (int)date("y", strtotime($subj['ending_date']));
+        $day = (int)date("d", strtotime($subj['starting_date']));
 
-        $starting_month = (int)date("m",strtotime($subj['starting_date']));
-        $ending_month = (int)date("m",strtotime($subj['ending_date']));
+        $starting_month = (int)date("m", strtotime($subj['starting_date']));
+        $ending_month = (int)date("m", strtotime($subj['ending_date']));
 
         // var_dump($starting_month);
         // var_dump($ending_month);
 
         $month = $starting_month;
         $year = $starting_year + 2000;
-        $pmnt_date = $year . '-' . $month . '-' . $day ;
-        
+        $pmnt_date = $year . '-' . $month . '-' . $day;
 
-        for ($i=0; $i < (int)$subj['duration'] ; $i++) { 
 
-            if($month > 12){
+        for ($i = 0; $i < (int)$subj['duration']; $i++) {
+
+            if ($month > 12) {
 
                 $month = 1;
                 $year++;
 
-                $pmnt_date = $year . '-' . $month . '-' . $day ;
+                $pmnt_date = $year . '-' . $month . '-' . $day;
 
                 $pmnt = new Payments;
 
@@ -58,11 +59,10 @@ class TestController extends Controller
 
                 // $pmnt->save();
 
-                Yii::$app->session->addFlash('success',  'new pending payment for '. $pmnt->date);
+                Yii::$app->session->addFlash('success',  'new pending payment for ' . $pmnt->date);
+            } else {
 
-            }else{
-
-                $pmnt_date = $year . '-' . $month . '-' . $day ;
+                $pmnt_date = $year . '-' . $month . '-' . $day;
 
                 $pmnt = new Payments;
 
@@ -74,28 +74,29 @@ class TestController extends Controller
 
                 // $pmnt->save();
 
-                Yii::$app->session->addFlash('success',  'new pending payment for '. $pmnt->date);
-
+                Yii::$app->session->addFlash('success',  'new pending payment for ' . $pmnt->date);
             };
             $month++;
         }
     }
 
-    public function actionMoreTests(){
+    public function actionMoreTests()
+    {
 
-        $subj = Subjects::findOne(['id'=>6]);
+        $subj = Subjects::findOne(['id' => 6]);
 
         $subj->getFinishingDate($subj['starting_date'], $subj['duration']);
-        
+
         die();
     }
 
-    public function actionMuchMoreTest(){
+    public function actionMuchMoreTest()
+    {
         $user_id = 1;
 
         $user_subjects = UserHasSubject::find('id')->where(['user_id' => $user_id]);
 
-        echo'<pre>';
+        echo '<pre>';
         var_dump($user_subjects);
 
         $dataProvider = new ActiveDataProvider([
@@ -104,27 +105,27 @@ class TestController extends Controller
     }
 
     public function actionEvenMoreTests()
-    {   
-        echo'<pre>';
+    {
+        echo '<pre>';
 
 
-        $pmnt_id = 38; 
-        $payment = Payments::findOne(['id'=>$pmnt_id]);
-        $subject = Subjects::find()->where(['id'=>$payment->for_subject])->all();
+
+        $pmnt_id = 38;
+        $payment = Payments::findOne(['id' => $pmnt_id]);
+        $subject = Subjects::find()->where(['id' => $payment->for_subject])->all();
+        $date = new DateTime();
 
         $item = new AccountBalance();
 
         $item->teacher_id = $subject[0]->teacher_id;
         $item->payment_id = $pmnt_id;
-        $item->date = new DateTime();
-        $item->amount = $payment->amount * 0.8 ;
+        $item->date = $date->format('Y-m-d');
+        $item->amount = $payment->amount * 0.8;
 
-        $item->save();
+        $item->save(false);
 
 
         var_dump($item);
 
     }
-
-
 }
