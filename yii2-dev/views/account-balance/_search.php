@@ -18,11 +18,11 @@ use yii\widgets\ActiveForm;
         ],
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
+    <?= $form->field($model, 'item_id') ?>
 
     <?= $form->field($model, 'amount') ?>
 
-    <?= $form->field($model, 'for_user') ?>
+    <?= $form->field($model, 'teacher_id') ?>
 
     <?= $form->field($model, 'payment_id') ?>
 

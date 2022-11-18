@@ -68,6 +68,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                     $payment_routes = [
                         ['label' => 'index', 'url' => ['/payment/index']],
                         ['label' => 'my payments', 'url' => Url::toRoute(['/payment/my-payments','user_id' => Yii::$app->user->identity->id]) ],
+                        ['label' => 'Collect payments', 'url' => ['/account-balance/my-balance', 'teacher_id' => Yii::$app->user->identity->id]]
                     ];
 
                     $user_management_routes = [
@@ -93,7 +94,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                     $payment_routes = [
                         ['label' => 'index', 'url' => ['/payment/index']],
                         ['label' => 'my payments', 'url' => Url::toRoute(['/payment/my-payments','user_id' => Yii::$app->user->identity->id]) ],
-                        ['label' => 'Collect payments', 'url' => ['/account-balance/my-balance']]
+                        ['label' => 'Collect payments', 'url' => ['/account-balance/my-balance', 'teacher_id' => Yii::$app->user->identity->id]]
                     ];
 
                     $grade_routes = [
@@ -117,13 +118,6 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                         ['label' => 'index', 'url' => ['/user-has-grade/index']],
                     ];
 
-                }{
-
-                    $grade_routes = [
-                        ['label' => 'crear', 'url' => ['/user-has-grade/create']],
-                        ['label' => 'index', 'url' => ['/user-has-grade/index']],
-                    ];
-                
                 }
 
 

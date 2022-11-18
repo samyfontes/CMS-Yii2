@@ -30,15 +30,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            'item_id',
             'amount',
-            'for_user',
+            'teacher_id',
             'payment_id',
             'date',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, AccountBalance $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
+                    return Url::toRoute([$action, 'item_id' => $model->item_id]);
                  }
             ],
         ],

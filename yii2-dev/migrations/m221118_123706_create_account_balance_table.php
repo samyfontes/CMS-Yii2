@@ -19,23 +19,23 @@ class m221118_123706_create_account_balance_table extends Migration
         $this->createTable('{{%account_balance}}', [
             'item_id' => $this->primaryKey(),
             'amount' => $this->float(),
-            'for_user' => $this->integer()->notNull(),
+            'teacher_id' => $this->integer()->notNull(),
             'payment_id' => $this->integer()->notNull(),
             'date' => $this->date(),
         ]);
 
         // creates index for column `for_user`
         $this->createIndex(
-            '{{%idx-account_balance-for_user}}',
+            '{{%idx-account_balance-teacher_id}}',
             '{{%account_balance}}',
-            'for_user'
+            'teacher_id'
         );
 
         // add foreign key for table `{{%user}}`
         $this->addForeignKey(
-            '{{%fk-account_balance-for_user}}',
+            '{{%fk-account_balance-teacher_id}}',
             '{{%account_balance}}',
-            'for_user',
+            'teacher_id',
             '{{%user}}',
             'id',
             'CASCADE'

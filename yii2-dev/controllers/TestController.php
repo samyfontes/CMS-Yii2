@@ -6,6 +6,7 @@ use app\models\AccountBalance;
 use app\models\Payments;
 use app\models\Subjects;
 use app\models\UserHasSubject;
+use DateTime;
 use Faker\Core\Number;
 use Yii;
 use yii\data\ActiveDataProvider;
@@ -104,31 +105,25 @@ class TestController extends Controller
 
     public function actionEvenMoreTests()
     {   
-        $user_id = 1;
-
-        $subjects = Subjects::find()->where(['teacher_id' => $user_id])->all();
-
         echo'<pre>';
-        // var_dump($subjects);
 
-        foreach ($subjects as $subject) {
 
-            var_dump($subject->id);
-            $payments = Payments::find()->where(['for_subject'=>$subject->id])->all();
+        $pmnt_id = 38; 
+        $payment = Payments::findOne(['id'=>$pmnt_id]);
+        $subject = Subjects::find()->where(['id'=>$payment->for_subject])->all();
 
-            foreach ($payments as $payment) {
+        $item = new AccountBalance();
 
-                if ($payment->status === 'closed') {
-                    
-                    // $teacher_commission = $payment->amount * 0.8 ;
-                    $teacher_commission = new AccountBalance();
+        $item->teacher_id = $subject[0]->teacher_id;
+        $item->payment_id = $pmnt_id;
+        $item->date = new DateTime();
+        $item->amount = $payment->amount * 0.8 ;
 
-                    $teacher_commission->amount = $payment->amount * 0.8 ; 
+        $item->save();
 
-                    var_dump($teacher_commission);
-                }
-            }
-        }
+
+        var_dump($item);
+
     }
 
 

@@ -7,14 +7,14 @@ use Yii;
 /**
  * This is the model class for table "{{%account_balance}}".
  *
- * @property int $id
+ * @property int $item_id
  * @property float|null $amount
- * @property int $for_user
+ * @property int $teacher_id
  * @property int $payment_id
  * @property string|null $date
  *
- * @property User $forUser
  * @property Payment $payment
+ * @property User $teacher
  */
 class AccountBalance extends \yii\db\ActiveRecord
 {
@@ -33,11 +33,11 @@ class AccountBalance extends \yii\db\ActiveRecord
     {
         return [
             [['amount'], 'number'],
-            [['for_user', 'payment_id'], 'required'],
-            [['for_user', 'payment_id'], 'integer'],
+            [['teacher_id', 'payment_id'], 'required'],
+            [['teacher_id', 'payment_id'], 'integer'],
             [['date'], 'safe'],
-            [['for_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['for_user' => 'id']],
             [['payment_id'], 'exist', 'skipOnError' => true, 'targetClass' => Payment::class, 'targetAttribute' => ['payment_id' => 'id']],
+            [['teacher_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['teacher_id' => 'id']],
         ];
     }
 
@@ -47,22 +47,12 @@ class AccountBalance extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+            'item_id' => 'Item ID',
             'amount' => 'Amount',
-            'for_user' => 'For User',
+            'teacher_id' => 'Teacher ID',
             'payment_id' => 'Payment ID',
             'date' => 'Date',
         ];
-    }
-
-    /**
-     * Gets query for [[ForUser]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getForUser()
-    {
-        return $this->hasOne(User::class, ['id' => 'for_user']);
     }
 
     /**
@@ -73,5 +63,31 @@ class AccountBalance extends \yii\db\ActiveRecord
     public function getPayment()
     {
         return $this->hasOne(Payment::class, ['id' => 'payment_id']);
+    }
+
+    /**
+     * Gets query for [[Teacher]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTeacher()
+    {
+        return $this->hasOne(User::class, ['id' => 'teacher_id']);
+    }
+
+    public function newItem($pmnt_id)
+    {
+        $payment = Payments::findOne(['id'=>$pmnt_id]);
+
+        $teacher_id = Subjects::sele ;
+
+        if ($payment->status === 'closed') {
+        
+            $teacher_commission = new AccountBalance();
+            $teacher_commission->amount = $payment->amount * 0.8 ; 
+            var_dump($teacher_commission);
+        
+        }
+
     }
 }

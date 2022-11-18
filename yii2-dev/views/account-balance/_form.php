@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'amount')->textInput() ?>
 
-    <?= $form->field($model, 'for_user')->textInput() ?>
+    <?= $form->field($model, 'teacher_id')->textInput() ?>
 
     <?= $form->field($model, 'payment_id')->textInput() ?>
 

@@ -6,10 +6,10 @@ use yii\helpers\Html;
 /** @var app\models\AccountBalance $model */
 
 $this->title = Yii::t('app', 'Update Account Balance: {name}', [
-    'name' => $model->id,
+    'name' => $model->item_id,
 ]);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Account Balances'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => $model->item_id, 'url' => ['view', 'item_id' => $model->item_id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
 <div class="account-balance-update">

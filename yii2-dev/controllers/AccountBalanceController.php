@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\AccountBalance;
 use app\models\AccountBalanceSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -49,14 +50,14 @@ class AccountBalanceController extends Controller
 
     /**
      * Displays a single AccountBalance model.
-     * @param int $id ID
+     * @param int $item_id Item ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView($item_id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findModel($item_id),
         ]);
     }
 
@@ -71,7 +72,7 @@ class AccountBalanceController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['view', 'item_id' => $model->item_id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -85,16 +86,16 @@ class AccountBalanceController extends Controller
     /**
      * Updates an existing AccountBalance model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id ID
+     * @param int $item_id Item ID
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($item_id)
     {
-        $model = $this->findModel($id);
+        $model = $this->findModel($item_id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'item_id' => $model->item_id]);
         }
 
         return $this->render('update', [
@@ -105,13 +106,13 @@ class AccountBalanceController extends Controller
     /**
      * Deletes an existing AccountBalance model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id ID
+     * @param int $item_id Item ID
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionDelete($item_id)
     {
-        $this->findModel($id)->delete();
+        $this->findModel($item_id)->delete();
 
         return $this->redirect(['index']);
     }
@@ -119,23 +120,24 @@ class AccountBalanceController extends Controller
     /**
      * Finds the AccountBalance model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $id ID
+     * @param int $item_id Item ID
      * @return AccountBalance the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel($item_id)
     {
-        if (($model = AccountBalance::findOne(['id' => $id])) !== null) {
+        if (($model = AccountBalance::findOne(['item_id' => $item_id])) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 
-    public function actionMyBalance()
+
+    public function actionMyBalance($teacher_id)
     {
         $searchModel = new AccountBalanceSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        $dataProvider = $searchModel->searchUsersBalance($teacher_id);
 
         return $this->render('my-balance', [
             'searchModel' => $searchModel,

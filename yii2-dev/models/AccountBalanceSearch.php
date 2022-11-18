@@ -17,7 +17,7 @@ class AccountBalanceSearch extends AccountBalance
     public function rules()
     {
         return [
-            [['id', 'for_user', 'payment_id'], 'integer'],
+            [['item_id', 'teacher_id', 'payment_id'], 'integer'],
             [['amount'], 'number'],
             [['date'], 'safe'],
         ];
@@ -59,11 +59,24 @@ class AccountBalanceSearch extends AccountBalance
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
+            'item_id' => $this->item_id,
             'amount' => $this->amount,
-            'for_user' => $this->for_user,
+            'teacher_id' => $this->teacher_id,
             'payment_id' => $this->payment_id,
             'date' => $this->date,
+        ]);
+
+        return $dataProvider;
+    }
+
+
+    public function searchUsersBalance($teacher_id)
+    {
+
+        $query = AccountBalance::find()->where(['teacher_id'=>$teacher_id]);
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
         ]);
 
         return $dataProvider;
